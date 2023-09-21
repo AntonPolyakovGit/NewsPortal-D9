@@ -1,0 +1,30 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+    <h1> Поиск новостей : {{ news_search|length }} </h1>
+    <hr>
+    <form action="" method="get">
+        {{ filterset.form.as_p }}
+        <input type="submit" value="Найти" />
+    </form>
+    {% for new in news_search%}
+    <div>
+        {{new.author.user__username}}
+        <br>
+        {{new.time_in|date:'d.m.Y'}}
+        <br>
+        {{new.title}}
+        <br>
+        {{new.content|truncatechars:20}}
+        <br>
+        {{post.get_news_display}}
+    </div>
+    {%endfor%}
+
+{% endblock content %}
